@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       console.log('user10', user.idToken);
       console.log("token "+localStorage.getItem('token'));
       if (user.idToken == null) {
-        console.log("no esta logueado");
+        console.log("no esta logueado, el token es incorrecto");
       }else{
 
         this.router.navigate(['']);
