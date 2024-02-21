@@ -1,0 +1,17 @@
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+mat-grid-tile {
+  size: 0px;
+  background: lightblue;
+}
+mat-grid-tile-content {
+  size: 0px;
+  background: lightblue;
+}
+mat-grid-list{
+  box-sizing: 0px;
+}
