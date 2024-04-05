@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy, HostListener, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  inject,
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Facebook, Google, Login } from 'src/app/models/login_model';
@@ -7,14 +13,18 @@ import { Subscription, from } from 'rxjs';
 import { SecurityService } from 'src/app/services/security.service';
 import { UsersService } from 'src/app/services/users.service';
 import { ErrorStateMatcher1 } from 'src/app/error-state-matcher1';
-import { FacebookLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import {
+  FacebookLoginProvider,
+  SocialAuthService,
+  SocialUser,
+} from '@abacritt/angularx-social-login';
 
 import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   formLogin: FormGroup;
@@ -28,7 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loggedIn = false;
   name!: string;
   idtoken!: string;
-  toGoo:any;
+  toGoo: any;
   user: any;
 
   tokenDataArray: any[] = []; // Arreglo para almacenar los datos decodificados en forma de array
@@ -44,47 +54,44 @@ export class LoginComponent implements OnInit, OnDestroy {
     formBuilder: FormBuilder,
     private router: Router,
     private dataService: UsersService,
-    private authService: SocialAuthService,
-   // private securityService: SecurityService
+    private authService: SocialAuthService // private securityService: SecurityService
   ) {
     this.getScreenSize();
-    //this.securityService.LogOff();
 
     this.formLogin = formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
-  ngOnInit() {
+  ngOnInit() {}
 
-  }
-
- Login() {
+  Login() {
     const userLogin: Login = {
       username: this.formLogin.value.username,
       password: this.formLogin.value.password,
     };
 
     console.log(userLogin);
-    this.subRef$ = this.dataService.login<Response>(userLogin)
-      .subscribe({
-        next: (res) => {
-          const token = res.body!.response;
-          console.log('token', res.body?.response);
-          sessionStorage.setItem('token', token);
-          localStorage.setItem('token', token);
-          this.decodedToken = jwt_decode(token);
-          this.tokenDataArray = Object.entries(this.decodedToken).map(([key, value]) => value);
-          const role=this.tokenDataArray[1];
-          localStorage.setItem('role', role);
-          console.log("role ",role);
-          this.router.navigate(['List']);
-        },
-        error:(response) =>{
-          console.log(response);
-        },
-});
+    this.subRef$ = this.dataService.login<Response>(userLogin).subscribe({
+      next: (res) => {
+        const token = res.body!.response;
+        console.log('token', res.body?.response);
+        sessionStorage.setItem('token', token);
+        localStorage.setItem('token', token);
+        this.decodedToken = jwt_decode(token);
+        this.tokenDataArray = Object.entries(this.decodedToken).map(
+          ([key, value]) => value
+        );
+        const role = this.tokenDataArray[1];
+        localStorage.setItem('role', role);
+        console.log('role ', role);
+        this.router.navigate(['List']);
+      },
+      error: (response) => {
+        console.log(response);
+      },
+    });
   }
 
   hasError(nombreControl: string, validacion: string) {
@@ -93,16 +100,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log("this.subRef$ "+this.subRef$);
+    console.log('this.subRef$ ' + this.subRef$);
     if (this.subRef$) {
       this.subRef$.unsubscribe();
-    }else{
+    } else {
       this.authSubscription.unsubscribe();
     }
-
   }
 
-  loginGoogle(){
+  loginGoogle() {
     this.subRef$ = this.authService.authState.subscribe({
       next: (user) => {
         if (user) {
@@ -112,28 +118,30 @@ export class LoginComponent implements OnInit, OnDestroy {
           // Obtener nombre de usuario y token de ID
           this.name = user.name;
           this.dataService.googleLogin(Google.username).subscribe((res) => {
-            console.log("Se inició sesión correctamente con Google.");
-            console.log("restoken "+res.token +" googleee "+Google.username);
-           if (res.token) {
+            console.log('Se inició sesión correctamente con Google.');
+            console.log(
+              'restoken ' + res.token + ' googleee ' + Google.username
+            );
+            if (res.token) {
               localStorage.setItem('token', res.token);
               this.decodedToken = jwt_decode(res.token);
-              this.tokenDataArray = Object.entries(this.decodedToken).map(([key, value]) => value);
-              const role=this.tokenDataArray[1];
+              this.tokenDataArray = Object.entries(this.decodedToken).map(
+                ([key, value]) => value
+              );
+              const role = this.tokenDataArray[1];
               localStorage.setItem('role', role);
-              console.log(this.tokenDataArray," role ",role);
+              console.log(this.tokenDataArray, ' role ', role);
               // Redirigir al usuario a la página de lista después del inicio de sesión
               this.router.navigateByUrl('List');
             }
           });
-          console.log("GoogleIdToken: ", this.idtoken);
+          console.log('GoogleIdToken: ', this.idtoken);
         } else {
-          console.log("El usuario no está autenticado.");
-          // Manejar el caso en que el usuario no esté autenticado
+          console.log('El usuario no está autenticado.');
         }
       },
       error: (err) => {
-        console.error("Error en la autenticación:", err);
-        // Manejar errores de autenticación
+        console.error('Error en la autenticación:', err);
       },
     });
   }
@@ -142,31 +150,33 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginGoogle();
   }
 
-   // Method to sign in with facebook.
+  // Method to sign in with facebook.
   FacebookSignin(platform: string): void {
     platform = FacebookLoginProvider.PROVIDER_ID;
-    this.subRef$= from(this.authService.signIn(platform)).subscribe((response) => {
+    this.subRef$ = from(this.authService.signIn(platform)).subscribe(
+      (response) => {
         //this.user = response;
         if (response) {
-        const Facebook: Facebook = {
-          username: response.authToken,
-        };
-        this.name = response.name;
-        console.log(" facebook10 "+Facebook.username);
-        this.dataService.facebookLogin(Facebook.username).subscribe((res) => {
-          if (res) {
-            console.log("Se inició sesión correctamente con facebook.");
-            localStorage.setItem('token', res.token);
-            this.decodedToken = jwt_decode(res.token);
-              this.tokenDataArray = Object.entries(this.decodedToken).map(([key, value]) => value);
-              const role=this.tokenDataArray[1];
+          const Facebook: Facebook = {
+            username: response.authToken,
+          };
+          this.name = response.name;
+          console.log(' facebook10 ' + Facebook.username);
+          this.dataService.facebookLogin(Facebook.username).subscribe((res) => {
+            if (res) {
+              console.log('Se inició sesión correctamente con facebook.');
+              localStorage.setItem('token', res.token);
+              this.decodedToken = jwt_decode(res.token);
+              this.tokenDataArray = Object.entries(this.decodedToken).map(
+                ([key, value]) => value
+              );
+              const role = this.tokenDataArray[1];
               localStorage.setItem('role', role);
-              console.log(this.tokenDataArray," role ",role);
-            this.router.navigateByUrl('List');
-          }
+              console.log(this.tokenDataArray, ' role ', role);
+              this.router.navigateByUrl('List');
+            }
           });
         }
-
       },
       (error) => {
         console.error('Error al iniciar sesión con Facebook:', error);
@@ -182,5 +192,3 @@ export class LoginComponent implements OnInit, OnDestroy {
     console.log('User signed out.');
   }
 }
-
-
