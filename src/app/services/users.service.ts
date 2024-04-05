@@ -1,78 +1,124 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { User } from '../models/user_model';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
   //private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  private enviroment:string=environment.apiUrl;
-  private apiURL:string=this.enviroment+"/api/User/";
-  // private apiURL:string="/api/User/";
+  private enviroment: string = environment.apiUrl;
+  private apiURL: string = this.enviroment + '/api/User/';
+  private apiURL1: string = this.enviroment + '/api/Auth/';
 
-
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   //Get User
-  GetAllUser() : Observable<User[]> {
+  GetAllUser(): Observable<User[]> {
     const httpHeaders1: HttpHeaders = this.getHeaders();
-    return this.http.get<User[]>(`${this.apiURL}GetUser`,{headers:httpHeaders1 });
+     return this.http.get<User[]>(`${this.apiURL}GetUser`,{
+       headers: httpHeaders1});
+    //return this.http.get<User[]>(`${this.apiURL}GetUser`);
   }
 
-  getUserId(id:number):Observable<any>{
-    return this.http.get<User[]>(`${this.apiURL}GetUser`+id);
-  }
-
-  //Get Token
-  geToken(token:string):Observable<any>{
-    return this.http.get<User[]>(`${this.apiURL}token`+token);
-  }
-
-  //Post User
-  insertUser(user:User ):Observable<any>{
-    user.idUser=0;
+  //Get user by Id
+  getUserId(id: number): Observable<any> {
     const httpHeaders1: HttpHeaders = this.getHeaders();
-    return this.http.post(`${this.apiURL}insertUser`, user, {headers:httpHeaders1 })
+    return this.http.get<User[]>(`${this.apiURL}GetUser`+id,{
+      headers: httpHeaders1});
   }
 
-  //Update User
-  updatetUser(id:number, user:User):Observable<any>{
-    return this.http.put(`${this.apiURL}UpdateUser`+user.idUser,user, { responseType: 'text'});
+
+  // //Post User
+  insertUser(user: User): Observable<any> {
+    user.idUser = 0;
+    const httpHeaders1: HttpHeaders = this.getHeaders();
+    return this.http.post(`${this.apiURL}insertUser`, user, {
+      headers: httpHeaders1});
   }
 
-  //Delete User
-  delete<T>(id: any): Observable<HttpResponse<T>> {
-    const httpHeaders: HttpHeaders = this.getHeaders();
-    return this.http.delete<T>(`${this.apiURL}DeleteUser`+id,
-      {
-        headers: httpHeaders,
-        observe: 'response'
-      });
+  // //Update User
+  updatetUser(id: number, user: User): Observable<any> {
+    const httpHeaders1: HttpHeaders = this.getHeaders();
+    return this.http.put(`${this.apiURL}UpdateUser` + user.idUser, user, {
+      headers: httpHeaders1, responseType: 'text',
+    });
   }
+
+  // //Delete User
+  // delete<T>(id: any): Observable<HttpResponse<T>> {
+  //   const httpHeaders1: HttpHeaders = this.getHeaders();
+  //   return this.http.delete<T>(`${this.apiURL}DeleteUser` + id, {
+  //     headers: httpHeaders1,
+  //     observe: 'response',
+  //   });
+  // }
+
+  delete(id: any): Observable<any> {
+    const httpHeaders1: HttpHeaders = this.getHeaders();
+  //  console.log("httpHeaders "+httpHeaders1);
+    return this.http.delete(`${this.apiURL}DeleteUser` + id,{headers: httpHeaders1}).pipe(
+      catchError((error: HttpErrorResponse) => {
+          console.error('Error occurred:', error);
+          return throwError('Something bad happened; please try again later.');
+      }));
+  }
+
   //Login
-login<T>(data: any): Observable<HttpResponse<T>> {
-  const httpHeaders: HttpHeaders = this.getHeaders();
-   return this.http.post<T>(`${this.apiURL}loginJWT`, data,
+  login<T>(data: any): Observable<HttpResponse<T>> {
+    const httpHeaders: HttpHeaders = this.getHeaders();
+    return this.http.post<T>(`${this.apiURL1}login`, data,
     {
       headers: httpHeaders,
       params:data,
       observe: 'response'
     });
-}
-getHeaders(): HttpHeaders {
-  let httpHeaders: HttpHeaders = new HttpHeaders();
-  var token =sessionStorage.getItem('token');;
-  if (token) {
+  }
+
+  googleLogin(idToken: string) {
+    console.log("si esta funcionando");
+    return this.http.post<{ token: string }>(
+      `${this.apiURL1}token`,
+      {
+        idToken: idToken,
+      }
+      //}, {headers:httpHeaders}
+    );
+   }
+
+   facebookLogin(idToken: string) {
+    console.log("si esta funcionando F");
+    return this.http.post<{ token: string }>(
+      `${this.apiURL1}tokenf`,
+      {
+        idToken: idToken,
+      }
+      //}, {headers:httpHeaders}
+    );
+   }
+
+  getHeaders(): HttpHeaders {
+    let httpHeaders: HttpHeaders = new HttpHeaders();
+    var token = localStorage.getItem('token');
+    if (token) {
       httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     }
 
-  return httpHeaders;
-}
+    return httpHeaders;
+  }
 
+
+  logout(): void {
+      // Limpiar el localStorage u otros pasos de limpieza necesarios
+      localStorage.removeItem('token');
+  }
 
 }

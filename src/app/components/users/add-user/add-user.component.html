@@ -1,6 +1,6 @@
 <div class="container my-5">
   <h1>{{editMode ? 'Edit' : 'Add'}} User</h1>
-  <form [formGroup]="myForm"  novalidate>
+  <form [formGroup]="myForm"  novalidate class="custom-form">
     <div class="col" cols="2" >
       <mat-form-field>
         <mat-label>Id_Card: &nbsp;&nbsp;</mat-label>
@@ -54,14 +54,15 @@
           <input  matInput type="text" formControlName="registration_date" class="form-control" id="registration_date" name="registration_date"  [(ngModel)]="newuser.registration_date">
         </mat-form-field>
       </div>
+      <button mat-raised-button color="primary" (click)="addUser()" [disabled]="!myForm.valid">save</button>
+      <button mat-raised-button color="warn" routerLink="">back</button>
     </div>
 
-      <div class="example-button-row">
-        <div class="example-flex-container">
-          <button mat-raised-button color="primary" (click)="addUser()" [disabled]="!myForm.valid">save</button>
-          <button mat-raised-button color="warn" routerLink="">back</button>
-        </div>
-      </div>
+      <!-- <div class="example-button-row"> -->
+        <!-- <div class="example-flex-container"> -->
+
+        <!-- </div> -->
+      <!-- </div> -->
 
   </form>
 </div>

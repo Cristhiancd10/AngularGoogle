@@ -22,3 +22,48 @@ table {
 
 }
 
+/* tabla */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table th, .custom-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #f2f2f2;
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.custom-table tr:hover {
+  background-color: #ddd;
+}
+
+.custom-table button {
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.custom-table .btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.custom-table .btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* button delete */
+.red-button {
+  background-color: red;
+  color: white;
+}

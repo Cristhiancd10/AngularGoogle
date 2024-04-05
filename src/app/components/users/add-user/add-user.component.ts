@@ -100,7 +100,7 @@ if (this.editMode) {
       .subscribe({
         next:(user) => {
         console.log(user);
-        this.router.navigate(['']);
+        this.router.navigate(['List']);
 
       },
       error:(response) =>{
@@ -111,7 +111,7 @@ if (this.editMode) {
 .subscribe({
   next: (user) => {
     console.log(user);
-    this.router.navigate([''])
+    this.router.navigate(['List'])
   },
   error:(response) =>{
     console.log(response);
