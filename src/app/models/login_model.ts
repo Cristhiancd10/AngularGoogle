@@ -3,3 +3,11 @@ export interface Login {
   password: string;
 
 }
+
+export interface Google {
+  username: string;
+}
+
+export interface Facebook {
+  username: string;
+}

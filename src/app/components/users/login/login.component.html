@@ -1,36 +1,49 @@
-<div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center center" [style.height.px]="scrHeight">
-  <div>
-      <img style="width: 250px;" src="https://raw.githubusercontent.com/programando-ideas/cursoangular/master/imagenes/programando-ideas.png" alt="Programando Ideas">
-  </div>
-  <div class="mat-elevation-z8">
+<div class="container">
+  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center center" [style.height.px]="scrHeight">
+    <div>
+      <img style="width: 250px;"
+        src="https://raw.githubusercontent.com/programando-ideas/cursoangular/master/imagenes/programando-ideas.png"
+        alt="Program Demo">
+    </div>
+    <br />
+    <div class="mat-elevation-z8 ">
       <mat-card fxFlex="500px" fxFlex.xs="100%">
-          <mat-card-title>Login</mat-card-title>
-          <mat-card-content>
-              <form [formGroup]="formLogin" (ngSubmit)="Login()">
-                  <p>
-                      <mat-form-field>
-                          <input matInput placeholder="username" type="text" formControlName="username" [errorStateMatcher]="matcher">
-                          <mat-error *ngIf="hasError('username', 'required')">
-                            Enter the user
-                          </mat-error>
-                      </mat-form-field>
-                  </p>
-                  <p>
-                      <mat-form-field>
-                          <input matInput placeholder="Contraseña" type="password" formControlName="password">
-                          <mat-error *ngIf="hasError('password', 'required')">
-                            Enter password
-                          </mat-error>
-                      </mat-form-field>
-                  </p>
-                  <div class="button">
-                      <button mat-raised-button [disabled]="!formLogin.valid" color="primary" type="submit">
-                        log in</button>
-                  </div>
-              </form>
-          </mat-card-content>
+        <mat-card-title class="custom-card-title">Login</mat-card-title>
+        <br />
+        <mat-card-content>
+          <form [formGroup]="formLogin" (ngSubmit)="Login()">
+            <br />
+            <p class="custom-input">
+              <mat-form-field>
+                <input matInput placeholder="username" type="text" formControlName="username"
+                  [errorStateMatcher]="matcher">
+                <mat-error *ngIf="hasError('username', 'required')">Enter the user</mat-error>
+              </mat-form-field>
+            </p>
+            <p class="custom-form-field">
+              <mat-form-field class="custom-input">
+                <input matInput placeholder="Contraseña" type="password" formControlName="password">
+                <mat-error class="custom-error-message" *ngIf="hasError('password', 'required')">Enter
+                  password</mat-error>
+              </mat-form-field>
+            </p>
+            <div class="button">
+              <button mat-raised-button [disabled]="!formLogin.valid" color="warn" type="submit">
+                log in</button>
+            </div>
+          </form>
+        </mat-card-content>
       </mat-card>
+    </div>
+    <div class="custom-container">
+      <p class="custom-paragraph">Or you can sign in with:</p>
+      <app-google-signin class="custom-google-signin" (loginWithGoogle)="googleSignin($event)">
+        <button class="custom-google-signin-button">Iniciar sesión con Google</button>
+      </app-google-signin>
+      <!-- <button (click)="signInWithFB()">Facebook</button> -->
+      <button class="facebook-button" (click)="FacebookSignin('FACEBOOK');">Sign in with Facebook</button>
+      <!-- <button (click)="FacebookSignin('facebook')" class="facebook-login-button">Iniciar sesión con Facebook</button> -->
+      <!-- <button (click)="signOut();">Sign out</button><br /><br /> -->
+    </div>
   </div>
-  <app-google-signin (loginWithGoogle)="googleSignin($event)"></app-google-signin>
 </div>
-

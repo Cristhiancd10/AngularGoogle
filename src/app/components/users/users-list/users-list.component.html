@@ -5,9 +5,10 @@
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
   </mat-form-field>
+  <button (click)="logout()">Desloguearse de Google</button>
 
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+    <table mat-table [dataSource]="dataSource" class="custom-table">
 
       <!-- Position Column -->
       <ng-container matColumnDef="idUser">
@@ -70,15 +71,12 @@
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let row">
-          <div class="example-flex-container">
-          <button mat-raised-button color="warn" (click)="delete(row.idUser)">delete</button> <br><br>
-          <button class="btn btn-primary" [routerLink]='["users/editUser1/"+row.idUser]'>Edit</button>
-        </div >
-
-      </td>
-
+          <div class="example-flex-container" *ngIf="role === 'Administrador'">
+            <button class="red-button" (click)="delete(row.idUser)">Delete</button><br><br>
+            <button class="btn btn-primary" [routerLink]='["/users/editUser1/"+row.idUser]'>Edit</button>
+          </div>
+        </td>
       </ng-container>
-
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

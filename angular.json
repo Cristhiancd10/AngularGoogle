@@ -71,6 +71,7 @@
               "browserTarget": "social_sso:build:development"
             }
           },
+
           "defaultConfiguration": "development"
         },
         "extract-i18n": {

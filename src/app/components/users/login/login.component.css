@@ -1,0 +1,146 @@
+.container {
+  background-color: #9abac5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ajusta la altura según tus necesidades */
+
+  /* Configuración adicional para una imagen de fondo */
+  /* background-image: url('ruta/a/la/imagen.jpg'); */
+  /*background-size: cover; /* Ajusta el tamaño de la imagen para cubrir el contenedor */
+  /*background-position: center; /* Centra la imagen */
+  /*background-repeat: no-repeat; /* Evita que la imagen se repita */
+
+}
+
+/* Style for the card */
+.card {
+  width: 500px;
+  max-width: 100%; /* Make sure the card doesn't exceed the container's width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Example elevation */
+}
+
+/* Style for the form inputs */
+.mat-form-field {
+  width: 100%;
+}
+
+/* Additional styling for the image if needed */
+.logo {
+  width: 250px;
+}
+
+.custom-card-title {
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Username */
+.custom-input mat-form-field {
+  width: 100%; /* Set the width of the form field */
+}
+
+.custom-input input.mat-input {
+  /* Your custom styles for the input field */
+  border: 1px solid #ccc; /* Example border */
+  border-radius: 5px; /* Example border radius */
+  padding: 8px 12px; /* Example padding */
+  font-size: 16px; /* Example font size */
+}
+
+.custom-input mat-error {
+  color: red; /* Example error text color */
+  font-size: 12px; /* Example error font size */
+}
+
+/* Password */
+.custom-form-field {
+  /* Your custom styles for the form field container */
+  margin-bottom: 20px; /* Example margin-bottom */
+}
+
+.custom-input input.mat-input {
+  /* Your custom styles for the input field */
+  border: 1px solid #ccc; /* Example border */
+  border-radius: 5px; /* Example border radius */
+  padding: 8px 12px; /* Example padding */
+  font-size: 16px; /* Example font size */
+}
+
+.custom-input mat-error.custom-error-message {
+  /* Your custom styles for the error message */
+  color: red; /* Example error text color */
+  font-size: 12px; /* Example error font size */
+}
+
+/* You can also style the mat-form-field directly */
+.custom-input mat-form-field {
+  /* Your custom styles for the mat-form-field */
+  width: 100%; /* Example width */
+}
+
+/* teto Or google*/
+.custom-paragraph {
+  font-size: 16px; /* Tamaño de fuente personalizado */
+  color: #333; /* Color de texto personalizado */
+  font-weight: bold; /* Peso de fuente personalizado */
+  text-align: center;
+}
+
+
+/* boton google */
+.custom-google-signin {
+  display: block; /* Asegura que el componente sea un bloque */
+  margin-top: 0px; /* Margen superior personalizado */
+  text-align: center;
+  margin-bottom: 10px; /* Espacio entre los botones */
+}
+
+.custom-google-signin-button {
+  background-color: #4285f4; /* Color de fondo personalizado */
+  color: white; /* Color de texto personalizado */
+  padding: 10px 20px; /* Relleno personalizado */
+  border: none; /* Elimina el borde */
+  border-radius: 5px; /* Radio de borde personalizado */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+
+}
+
+.custom-google-signin-button:hover {
+  background-color: #357ae8; /* Cambia el color de fondo al pasar el ratón por encima */
+
+}
+
+
+/*boton log in */
+.button {
+  text-align: center;
+}
+
+.button button {
+  background-color: rgb(68, 22, 237);
+  color: white;
+}
+
+
+/*botnes */
+.custom-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* boton facebook */.facebook-button {
+    background-color: #3b5998;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.facebook-button:hover {
+    background-color: #2d4373;
+}

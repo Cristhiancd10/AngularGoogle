@@ -15,3 +15,39 @@ mat-grid-tile-content {
 mat-grid-list{
   box-sizing: 0px;
 }
+
+
+/* form*/
+.custom-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.mat-form-field {
+  width: calc(50% - 20px); /* Ancho del 50% con margen */
+  margin-bottom: 20px;
+}
+
+.mat-form-field:last-child {
+  width: 100%; /* El último campo de formulario ocupa todo el ancho */
+}
+
+.example-button-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.example-flex-container button {
+  margin-left: 10px;
+}
+
+.mat-error {
+  color: #f44336; /* Color rojo para el mensaje de error */
+}

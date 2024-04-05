@@ -1,0 +1,16 @@
+/* Estilos para el diálogo */
+.dialog-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Ajusta el ancho y el alto según tus necesidades */
+  width: 300px;
+  // height: 300px;
+  /* Agrega estilos de caja y otros estilos según sea necesario */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
