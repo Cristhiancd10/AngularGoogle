@@ -1,0 +1,11 @@
+<!-- app.component.html -->
+
+<body>
+  <div>
+    <img [src]="photo" alt="Foto de perfil" *ngIf="photo">
+    <p>Names: {{ names }}</p>
+    <p>User: {{ user }}</p>
+    <p>Role: {{ role }}</p>
+    <button mat-raised-button color="warn" routerLink="/List">back</button>
+  </div>
+</body>
