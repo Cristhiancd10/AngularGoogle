@@ -1,0 +1,29 @@
+/* Estilo para el contenedor principal */
+body {
+  background-color: rgb(189, 183, 99); /* Cambia este valor al color que desees */
+  height: 91vh;
+}
+div {
+  background-color: rgb(234, 234, 152);
+  text-align: center; /* Centrar el contenido dentro del div */
+  margin: 10px; /* Margen alrededor del div */
+  height: 90vh;
+}
+
+/* Estilo para el párrafo dentro del contenedor */
+p {
+  font-size: 18px; /* Tamaño de fuente */
+  margin-bottom: 10px; /* Margen inferior para separación */
+}
+
+/* Estilo para la imagen */
+img {
+  max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+  height: auto; /* Mantiene la proporción de aspecto de la imagen */
+  margin-bottom: 10px; /* Margen inferior para separación */
+}
+
+/* Estilo para el botón */
+button {
+  margin-top: 20px; /* Margen superior para separación */
+}

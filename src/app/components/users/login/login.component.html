@@ -38,12 +38,9 @@
     <div class="custom-container">
       <p class="custom-paragraph">Or you can sign in with:</p>
       <app-google-signin class="custom-google-signin" (loginWithGoogle)="googleSignin($event)">
-        <button class="custom-google-signin-button">Iniciar sesión con Google</button>
+        <button class="custom-google-signin-button">Sign in with Google</button>
       </app-google-signin>
-      <!-- <button (click)="signInWithFB()">Facebook</button> -->
       <button class="facebook-button" (click)="FacebookSignin('FACEBOOK');">Sign in with Facebook</button>
-      <!-- <button (click)="FacebookSignin('facebook')" class="facebook-login-button">Iniciar sesión con Facebook</button> -->
-      <!-- <button (click)="signOut();">Sign out</button><br /><br /> -->
     </div>
   </div>
 </div>

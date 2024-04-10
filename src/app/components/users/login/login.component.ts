@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   scrHeight: any;
   scrWidth: any;
   authSubscription!: Subscription;
-  //user1:SocialUser | null=null;
   loggedIn = false;
   name!: string;
   idtoken!: string;
@@ -83,9 +82,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.tokenDataArray = Object.entries(this.decodedToken).map(
           ([key, value]) => value
         );
+        const user = this.tokenDataArray[0];
         const role = this.tokenDataArray[1];
         localStorage.setItem('role', role);
-        console.log('role ', role);
+        localStorage.setItem('user', user);
+        console.log('role ', this.tokenDataArray);
         this.router.navigate(['List']);
       },
       error: (response) => {
@@ -115,6 +116,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           const Google: Google = {
             username: user.idToken,
           };
+          const names=user.name;
+          const foto= user.photoUrl;
+          console.log("user"+user.name);
           // Obtener nombre de usuario y token de ID
           this.name = user.name;
           this.dataService.googleLogin(Google.username).subscribe((res) => {
@@ -128,8 +132,13 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.tokenDataArray = Object.entries(this.decodedToken).map(
                 ([key, value]) => value
               );
+
+              const user = this.tokenDataArray[0];
               const role = this.tokenDataArray[1];
+              localStorage.setItem('names', names);
+              localStorage.setItem('foto', foto);
               localStorage.setItem('role', role);
+              localStorage.setItem('user', user);
               console.log(this.tokenDataArray, ' role ', role);
               // Redirigir al usuario a la página de lista después del inicio de sesión
               this.router.navigateByUrl('List');
@@ -155,13 +164,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     platform = FacebookLoginProvider.PROVIDER_ID;
     this.subRef$ = from(this.authService.signIn(platform)).subscribe(
       (response) => {
-        //this.user = response;
+       
         if (response) {
           const Facebook: Facebook = {
             username: response.authToken,
           };
+          const names=response.name;
+          const foto= response.photoUrl;
           this.name = response.name;
-          console.log(' facebook10 ' + Facebook.username);
+          console.log(' facebook10 ' + response.name);
           this.dataService.facebookLogin(Facebook.username).subscribe((res) => {
             if (res) {
               console.log('Se inició sesión correctamente con facebook.');
@@ -170,8 +181,12 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.tokenDataArray = Object.entries(this.decodedToken).map(
                 ([key, value]) => value
               );
+              const user = this.tokenDataArray[0];
               const role = this.tokenDataArray[1];
+              localStorage.setItem('names', names);
+              localStorage.setItem('foto', foto);
               localStorage.setItem('role', role);
+              localStorage.setItem('user', user);
               console.log(this.tokenDataArray, ' role ', role);
               this.router.navigateByUrl('List');
             }
@@ -180,7 +195,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       },
       (error) => {
         console.error('Error al iniciar sesión con Facebook:', error);
-        // Maneja el error según tus necesidades
+
       }
     );
   }

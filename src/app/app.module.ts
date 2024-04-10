@@ -34,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UsersListComponent } from './components/users/users-list/users-list.component';
 import { LoginComponent } from './components/users/login/login.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { ContactuserComponent } from './components/users/contactuser/contactuser.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     AddUserComponent,
     LoginComponent,
     DeleteDialogComponent,
+    ContactuserComponent,
   ],
   imports: [
     BrowserModule,
