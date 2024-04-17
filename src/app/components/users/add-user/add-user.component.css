@@ -51,3 +51,16 @@ mat-grid-list{
 .mat-error {
   color: #f44336; /* Color rojo para el mensaje de error */
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Optional: This ensures the form is centered vertically on the screen */
+  flex-direction: column;
+}
+
+.container h1 {
+  order: -1; /* Coloca el h1 al principio del contenedor */
+  margin-bottom: 20px; /* Añade un margen inferior opcional */
+}

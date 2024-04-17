@@ -1,6 +1,26 @@
+.user-list-container {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.logout-button {
+  margin-bottom: 20px;
+  display: block;
+  margin: 20px auto; /* Centers the button horizontally and adds margin */
+  padding: 10px 20px; /* Adds padding for better appearance */
+  background-color: #4CAF50; /* Change button color */
+  color: white; /* Change text color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Add transition for smoother color change */
+}
+
+
 table {
   width: 100%;
 }
+
 
 .mat-mdc-form-field {
   font-size: 14px;
