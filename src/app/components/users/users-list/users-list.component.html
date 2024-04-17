@@ -1,10 +1,10 @@
-<div>
+<div class="user-list-container">
   <h1>User List</h1>
   <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
   </mat-form-field>
-  <button (click)="logout()">Desloguearse de Google</button>
+  <button (click)="logout()" class="logout-button">LOGOUT</button>
 
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" class="custom-table">

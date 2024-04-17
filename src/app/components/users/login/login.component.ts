@@ -1,23 +1,18 @@
 import {
   Component,
-  OnInit,
   OnDestroy,
-  HostListener,
-  inject,
-} from '@angular/core';
+ } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Facebook, Google, Login } from 'src/app/models/login_model';
 import { Response } from 'src/app/models/reponse_model';
 import { Subscription, from } from 'rxjs';
-import { SecurityService } from 'src/app/services/security.service';
 import { UsersService } from 'src/app/services/users.service';
 import { ErrorStateMatcher1 } from 'src/app/error-state-matcher1';
 import {
   FacebookLoginProvider,
   SocialAuthService,
-  SocialUser,
-} from '@abacritt/angularx-social-login';
+ } from '@abacritt/angularx-social-login';
 
 import jwt_decode from 'jwt-decode';
 
@@ -26,7 +21,7 @@ import jwt_decode from 'jwt-decode';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnDestroy {
   formLogin: FormGroup;
   subRef$?: Subscription;
   subRef$1?: Subscription;
@@ -42,6 +37,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   tokenDataArray: any[] = []; // Arreglo para almacenar los datos decodificados en forma de array
   decodedToken: any; // Declara una variable para almacenar los datos decodificados
+
+
 
   getScreenSize() {
     this.scrHeight = window.innerHeight;
@@ -63,7 +60,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {}
 
   Login() {
     const userLogin: Login = {
@@ -87,7 +83,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         localStorage.setItem('role', role);
         localStorage.setItem('user', user);
         console.log('role ', this.tokenDataArray);
-        this.router.navigate(['List']);
+        this.router.navigate(['/List']);
+
       },
       error: (response) => {
         console.log(response);
@@ -164,7 +161,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     platform = FacebookLoginProvider.PROVIDER_ID;
     this.subRef$ = from(this.authService.signIn(platform)).subscribe(
       (response) => {
-       
+
         if (response) {
           const Facebook: Facebook = {
             username: response.authToken,
@@ -206,4 +203,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.user = null;
     console.log('User signed out.');
   }
+
+
+
 }
+

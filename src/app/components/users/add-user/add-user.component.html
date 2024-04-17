@@ -1,6 +1,7 @@
 <div class="container my-5">
-  <h1>{{editMode ? 'Edit' : 'Add'}} User</h1>
+  <h1 class="h1">{{editMode ? 'Edit' : 'Add'}} User</h1>
   <form [formGroup]="myForm" novalidate class="custom-form">
+    <br />
     <div class="col" cols="2">
       <mat-form-field>
         <mat-label>Id_Card: &nbsp;&nbsp;</mat-label>
@@ -14,6 +15,8 @@
         <input matInput type="text" formControlName="username" class="form-control" id="username" name="username"
           [(ngModel)]="newuser.username">
       </mat-form-field>
+      <br />
+      <br />
       <div class="col" cols="2">
         <mat-form-field>
           <mat-label>Password: &nbsp;&nbsp;</mat-label>
@@ -27,6 +30,7 @@
             [(ngModel)]="newuser.role">
         </mat-form-field>
       </div>
+      <br />
       <div class="col" cols="2">
         <mat-form-field>
           <mat-label>Names: &nbsp;&nbsp;</mat-label>
@@ -42,6 +46,7 @@
             [(ngModel)]="newuser.phone">
         </mat-form-field>
       </div>
+      <br />
       <div class="col" cols="2">
         <mat-form-field>
           <mat-label>Email: &nbsp;&nbsp;</mat-label>
@@ -56,6 +61,7 @@
             [(ngModel)]="newuser.city">
         </mat-form-field>
       </div>
+      <br />
       <div class="col" cols="2">
         <mat-form-field>
           <mat-label>Registration Date</mat-label>
