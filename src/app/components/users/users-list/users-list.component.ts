@@ -60,7 +60,6 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
   ) {
     const storedRole = localStorage.getItem('role');
     this.role = storedRole !== null ? storedRole : '';
-    console.log('role Local ', this.role);
     if (this.role === 'Administrador') {
       this.displayedColumns = [
         'idUser',

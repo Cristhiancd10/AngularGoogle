@@ -1,5 +1,6 @@
 import {
   Component,
+  Injectable,
   OnDestroy,
  } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -21,6 +22,9 @@ import jwt_decode from 'jwt-decode';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
+@Injectable({
+  providedIn: 'root',
+})
 export class LoginComponent implements OnDestroy {
   formLogin: FormGroup;
   subRef$?: Subscription;
@@ -37,7 +41,6 @@ export class LoginComponent implements OnDestroy {
 
   tokenDataArray: any[] = []; // Arreglo para almacenar los datos decodificados en forma de array
   decodedToken: any; // Declara una variable para almacenar los datos decodificados
-
 
 
   getScreenSize() {
@@ -67,12 +70,10 @@ export class LoginComponent implements OnDestroy {
       password: this.formLogin.value.password,
     };
 
-    console.log(userLogin);
     this.subRef$ = this.dataService.login<Response>(userLogin).subscribe({
       next: (res) => {
         const token = res.body!.response;
         console.log('token', res.body?.response);
-        sessionStorage.setItem('token', token);
         localStorage.setItem('token', token);
         this.decodedToken = jwt_decode(token);
         this.tokenDataArray = Object.entries(this.decodedToken).map(
@@ -82,7 +83,6 @@ export class LoginComponent implements OnDestroy {
         const role = this.tokenDataArray[1];
         localStorage.setItem('role', role);
         localStorage.setItem('user', user);
-        console.log('role ', this.tokenDataArray);
         this.router.navigate(['/List']);
 
       },
@@ -184,7 +184,6 @@ export class LoginComponent implements OnDestroy {
               localStorage.setItem('foto', foto);
               localStorage.setItem('role', role);
               localStorage.setItem('user', user);
-              console.log(this.tokenDataArray, ' role ', role);
               this.router.navigateByUrl('List');
             }
           });
@@ -203,7 +202,6 @@ export class LoginComponent implements OnDestroy {
     this.user = null;
     console.log('User signed out.');
   }
-
 
 
 }

@@ -10,7 +10,7 @@
           <a class="nav-link active" aria-current="page" routerLink="List">USER</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="addUser" *ngIf="role ">ADD USER</a>
+          <a class="nav-link active" aria-current="page" routerLink="addUser" *ngIf="role ==='Administrador' && userLoginOn ">ADD USER</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="">LOGIN</a>

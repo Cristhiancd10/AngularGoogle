@@ -1,28 +1,53 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UsersService } from './services/users.service';
-import { Subscription } from 'rxjs';
-import { LoginComponent } from './components/users/login/login.component';
+import { User } from './models/user_model';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent  implements OnInit  {
+export class AppComponent  implements OnInit, OnDestroy  {
 
-role: boolean = false; // Variable que almacena el rol del usuario
+userLoginOn?:boolean;
+userData!:string;
 
- constructor(private authService: UsersService ) {
-  }
+role!:string;
+tokenDataArray: any[] = []; // Arreglo para almacenar los datos decodificados en forma de array
+decodedToken: any; // Declara una variable para almacenar los datos decodificados
 
-ngOnInit(): void {
-  this.role = this.authService.isAdminUser();
-  console.log("role app ", this.role);
-  this.authService.isAdmin$.subscribe(isAdmin => {
-    this.role = isAdmin; // Actualiza el estado del usuario en AppComponent
-    console.log("role app ", this.role);
+  constructor(private authService: UsersService ) {
+   }
+
+
+ ngOnInit(): void {
+  this.authService.isAdminSubject.subscribe({
+    next:(userLoginOn) => {
+      this.userLoginOn=userLoginOn;
+      console.log("logOn ",this.userLoginOn );
+      if (this.userLoginOn) {
+        console.log("funciona ");
+        this.authService.isUserSubject.subscribe({
+          next:(userData)=>{
+            this.userData=userData;
+            this.decodedToken = jwt_decode(this.userData);
+            this.tokenDataArray = Object.entries(this.decodedToken).map(
+              ([key, value]) => value
+            );
+            console.log("log User ", this.tokenDataArray," ",  this.tokenDataArray[1]);
+            this.role=this.tokenDataArray[1];
+          }
+
+        });
+      }
+    }
   });
+}
+
+ngOnDestroy(): void {
+  this.authService.isUserSubject.unsubscribe();
+  this.authService.isAdminSubject.unsubscribe();
 }
 
 }
