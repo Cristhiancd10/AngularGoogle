@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { User } from 'src/app/models/user_model';
 import { UsersService } from 'src/app/services/users.service';
 import { formatDate } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { CityService } from 'src/app/services/city.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { City } from 'src/app/models/city_model';
 
 @Component({
   selector: 'app-add-user',
@@ -12,12 +16,18 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./add-user.component.css'],
 })
 export class AddUserComponent implements OnInit {
+//agregue esto
+  subRef$?: Subscription;
+  dataSource = new MatTableDataSource<City>();
+
   myForm!: FormGroup;
   public idUser!: any;
   editMode: boolean = false;
   ignoreExistPendingChanges: boolean = false;
+  ciC: string = '';
+  CityGuardar:City = new City();
 
-  newuser: User = {
+   newuser: User = {
     idUser: 0,
     id_Card: '',
     username: '',
@@ -26,7 +36,7 @@ export class AddUserComponent implements OnInit {
     names: '',
     phone: '',
     email: '',
-    city: '',
+    city:new City(),
     registration_date: '',
   };
 
@@ -34,10 +44,15 @@ export class AddUserComponent implements OnInit {
   locale = 'en-US';
   formattedDate = formatDate(new Date(), this.format, this.locale);
 
+  //combobox
+  ciudades: string[] = [];
+
   constructor(
+    private cityService:CityService,
     private userService: UsersService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
   ) {}
 
   existenCambiosPendientes(): boolean {
@@ -48,6 +63,18 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+     ///agregue esto
+     this.cityService.GetAllCity().subscribe({
+      next: (city) => {
+        this.ciudades = city.map(cities=> cities.nombre);
+        console.log("ciudades ",this.ciudades);
+      },
+      error: (error) => {
+        console.error('Error obteniendo ciudades', error);
+      }
+    });
+
+    ///////
     this.newuser.registration_date = this.formattedDate;
     this.myForm = new FormGroup({
       id_Card: new FormControl('', Validators.required),
@@ -71,12 +98,15 @@ export class AddUserComponent implements OnInit {
       console.log(data);
       this.newuser = data;
     });
+
   }
 
   addUser() {
+
     this.ignoreExistPendingChanges = true;
     if (this.editMode) {
       var updateuser = {
+        city:  this.newuser.city,
         idUser: this.newuser.idUser,
         id_Card: this.newuser.id_Card,
         username: this.newuser.username,
@@ -85,7 +115,6 @@ export class AddUserComponent implements OnInit {
         names: this.newuser.names,
         phone: this.newuser.phone,
         email: this.newuser.email,
-        city: this.newuser.city,
         registration_date: this.newuser.registration_date,
       };
 
@@ -99,7 +128,24 @@ export class AddUserComponent implements OnInit {
         },
       });
     } else {
-      console.log(this.newuser);
+
+      console.log("city Compara ",this.newuser.city);
+    this.ciC=this.newuser.city.toString();
+    console.log("city C ",this.ciC);
+    var ci=this.cityService.getCityNombre(this.ciC).subscribe((data:City) => {
+      this.CityGuardar=data;
+      this.newuser.city=this.CityGuardar;
+    });
+
+      this.newuser.id_Card = this.myForm.value.id_Card;
+      this.newuser.username = this.myForm.value.username;
+      this.newuser.password = this.myForm.value.password;
+      this.newuser.role = this.myForm.value.role;
+      this.newuser.names = this.myForm.value.names;
+      this.newuser.phone = this.myForm.value.phone;
+      this.newuser.email = this.myForm.value.email;
+      this.newuser.registration_date = this.myForm.value.registration_date;
+      console.log("ciudad ", this.newuser.city);
       this.userService.insertUser(this.newuser).subscribe({
         next: (user) => {
           console.log(user);

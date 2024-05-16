@@ -1,0 +1,46 @@
+<div class="user-list-container">
+  <h1>User List</h1>
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="custom-table">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id City. </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="codigoPostal">
+        <th mat-header-cell *matHeaderCellDef> codigoPostal </th>
+        <td mat-cell *matCellDef="let element"> {{element.codigoPostal}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="example-flex-container" *ngIf="role === 'Administrador'">
+            <button class="red-button" (click)="delete(row.id)">Delete</button><br><br>
+            <button class="btn btn-primary" [routerLink]='["/users/editUser1/"+row.id]'>Edit</button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <button mat-raised-button color="warn" routerLink="/List">back</button>
+    <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons class="custom-paginator">
+    </mat-paginator>
+  </div>
+</div>

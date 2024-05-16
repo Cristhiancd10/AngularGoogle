@@ -1,0 +1,24 @@
+<div class="container my-5">
+  <h1 class="h1">{{editMode ? 'Edit' : 'Add'}} City</h1>
+  <form [formGroup]="myForm" novalidate class="custom-form">
+    <br />
+    <div class="col" cols="2">
+      <mat-form-field>
+        <mat-label>Nombre: &nbsp;&nbsp;</mat-label>
+        <!-- <input matInput> -->
+        <input matInput type="text" formControlName="nombre" class="form-control" id="nombre" name="nombre"
+          [(ngModel)]="newuser.nombre">
+      </mat-form-field>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <mat-form-field>
+        <mat-label>Codigo Postal: &nbsp;&nbsp;</mat-label>
+        <input matInput type="text" formControlName="codigoPostal" class="form-control" id="codigoPostal" name="codigoPostal"
+          [(ngModel)]="newuser.codigoPostal">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="addCity()" [disabled]="!myForm.valid">save</button>
+      <button mat-raised-button color="warn" routerLink="/List">back</button>
+    </div>
+
+
+  </form>
+</div>

@@ -2,77 +2,99 @@
   <h1 class="h1">{{editMode ? 'Edit' : 'Add'}} User</h1>
   <form [formGroup]="myForm" novalidate class="custom-form">
     <br />
-    <div class="col" cols="2">
-      <mat-form-field>
-        <mat-label>Id_Card: &nbsp;&nbsp;</mat-label>
-        <!-- <input matInput> -->
-        <input matInput type="text" formControlName="id_Card" class="form-control" id="id_Card" name="id_Card"
-          [(ngModel)]="newuser.id_Card">
-      </mat-form-field>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <mat-form-field>
-        <mat-label>Username: &nbsp;&nbsp;</mat-label>
-        <input matInput type="text" formControlName="username" class="form-control" id="username" name="username"
-          [(ngModel)]="newuser.username">
-      </mat-form-field>
-      <br />
-      <br />
-      <div class="col" cols="2">
+    <div class="row">
+      <div class="col">
         <mat-form-field>
-          <mat-label>Password: &nbsp;&nbsp;</mat-label>
-          <input matInput type="text" formControlName="password" class="form-control" id="password" name="password"
-            [(ngModel)]="newuser.password">
+          <mat-label>Id_Card: &nbsp;&nbsp;</mat-label>
+          <input matInput type="text" formControlName="id_Card" class="form-control" id="id_Card" name="id_Card">
         </mat-form-field>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <mat-form-field>
-          <mat-label>Role: &nbsp;&nbsp;</mat-label>
-          <input matInput type="text" formControlName="role" class="form-control" id="role" name="role"
-            [(ngModel)]="newuser.role">
+          <mat-label>Username: &nbsp;&nbsp;</mat-label>
+          <input matInput type="text" formControlName="username" class="form-control" id="username" name="username">
         </mat-form-field>
-      </div>
-      <br />
-      <div class="col" cols="2">
-        <mat-form-field>
-          <mat-label>Names: &nbsp;&nbsp;</mat-label>
-          <input matInput type="text" formControlName="names" class="form-control" id="names" name="names"
-            [(ngModel)]="newuser.names">
-          <mat-error *ngIf="myForm!.get('names')!.hasError('required')">The names is required</mat-error>
-        </mat-form-field>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        <br />
+        <br />
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Password: &nbsp;&nbsp;</mat-label>
+              <input matInput type="text" formControlName="password" class="form-control" id="password" name="password">
+            </mat-form-field>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-form-field>
+              <mat-label>Role: &nbsp;&nbsp;</mat-label>
+              <input matInput type="text" formControlName="role" class="form-control" id="role" name="role">
+            </mat-form-field>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Names: &nbsp;&nbsp;</mat-label>
+              <input matInput type="text" formControlName="names" class="form-control" id="names" name="names">
+              <mat-error *ngIf="myForm.get('names')!.hasError('required')">The names is required</mat-error>
+            </mat-form-field>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-form-field>
+              <mat-label>Phone: &nbsp;&nbsp;</mat-label>
+              <input matInput type="text" formControlName="phone" class="form-control" id="phone" name="phone">
+            </mat-form-field>
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Email: &nbsp;&nbsp;</mat-label>
+              <input matInput type="text" formControlName="email" class="form-control" id="email" name="email">
+            </mat-form-field>
+          </div>
+          <div class="col form-group">
+            <!-- <mat-form-field>
+              <mat-label class="custom-mat-label">City: &nbsp;&nbsp;</mat-label>
+              <mat-select formControlName="city" class="form-control" id="city" name="city" [(ngModel)]="newuser.city">
+                <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            <!-- <mat-form-field>
+              <mat-label>Select an option</mat-label>
+              <mat-select formControlName="city" class="form-control" id="city" name="city" [(ngModel)]="newuser.city">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</mat-option>
+              </mat-select>
+            </mat-form-field> -->
 
-        <mat-form-field>
-          <mat-label>Phone: &nbsp;&nbsp;</mat-label>
-          <input matInput type="text" formControlName="phone" class="form-control" id="phone" name="phone"
-            [(ngModel)]="newuser.phone">
-        </mat-form-field>
-      </div>
-      <br />
-      <div class="col" cols="2">
-        <mat-form-field>
-          <mat-label>Email: &nbsp;&nbsp;</mat-label>
-          <input matInput type="text" formControlName="email" class="form-control" id="email" name="email"
-            [(ngModel)]="newuser.email">
-        </mat-form-field>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+                 <div class="form-group">
+                  <label for="suscripcion">Escoja la ciudad de residencia</label>
+                  <div class="custom-select">
+                    <select formControlName="city"  id="city" name="city" [(ngModel)]="newuser.city!.nombre">
+                      <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
+                    </select>
+                  </div>
+                </div>
 
-        <mat-form-field>
-          <mat-label>City: &nbsp;&nbsp;</mat-label>
-          <input matInput type="text" formControlName="city" class="form-control" id="city" name="city"
-            [(ngModel)]="newuser.city">
-        </mat-form-field>
+
+
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Registration Date</mat-label>
+              <input matInput type="text" formControlName="registration_date" class="form-control" id="registration_date"
+                name="registration_date" [(ngModel)]="newuser.registration_date">
+            </mat-form-field>
+          </div>
+        </div>
+        <br />
+        <button mat-raised-button color="primary" (click)="addUser()" [disabled]="!myForm.valid">Save</button>
+        <button mat-raised-button color="warn" routerLink="/List">Back</button>
       </div>
-      <br />
-      <div class="col" cols="2">
-        <mat-form-field>
-          <mat-label>Registration Date</mat-label>
-          <input matInput type="text" formControlName="registration_date" class="form-control" id="registration_date"
-            name="registration_date" [(ngModel)]="newuser.registration_date">
-        </mat-form-field>
-      </div>
-      <button mat-raised-button color="primary" (click)="addUser()" [disabled]="!myForm.valid">save</button>
-      <button mat-raised-button color="warn" routerLink="">back</button>
     </div>
-
-
   </form>
+
+
 </div>

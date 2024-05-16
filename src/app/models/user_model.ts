@@ -1,3 +1,5 @@
+import { City } from "./city_model";
+
 export interface User {
   idUser: number;
   id_Card: string;
@@ -7,6 +9,8 @@ export interface User {
   names: string;
   phone: string;
   email: string;
-  city: string;
+  city: City;
   registration_date: string;
+
+
 }

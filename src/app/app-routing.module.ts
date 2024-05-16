@@ -4,6 +4,9 @@ import { UsersListComponent } from './components/users/users-list/users-list.com
 import { AddUserComponent } from './components/users/add-user/add-user.component';
 import { LoginComponent } from './components/users/login/login.component';
 import { ContactuserComponent } from './components/users/contactuser/contactuser.component';
+import { CityListComponent } from './components/Citys/city-list/city-list.component';
+import { AddCityComponent } from './components/Citys/add-city/add-city.component';
+
 
 const routes: Routes = [
   {
@@ -15,8 +18,16 @@ const routes: Routes = [
     component: ContactuserComponent
   },
   {
+    path:'ListC',
+    component: CityListComponent
+  },
+  {
     path:'addUser',
     component: AddUserComponent
+  },
+  {
+    path:'addCity',
+    component: AddCityComponent
   },
   {
     path:'',
