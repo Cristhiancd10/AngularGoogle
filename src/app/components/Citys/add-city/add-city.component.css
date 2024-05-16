@@ -25,12 +25,12 @@ mat-grid-list{
 }
 
 .mat-form-field {
-  width: calc(50% - 20px);
+  width: calc(50% - 20px); /* Ancho del 50% con margen */
   margin-bottom: 20px;
 }
 
 .mat-form-field:last-child {
-  width: 100%;
+  width: 100%; /* El último campo de formulario ocupa todo el ancho */
 }
 
 .example-button-row {
@@ -63,12 +63,4 @@ mat-grid-list{
 .container h1 {
   order: -1; /* Coloca el h1 al principio del contenedor */
   margin-bottom: 20px; /* Añade un margen inferior opcional */
-}
-
-
-.custom-mat-label {
-  flex: 0 0 auto;
-  width: 150px; /* Ajusta el ancho según sea necesario */
-  text-align: right;
-  margin-right: 15px;
 }

@@ -35,13 +35,18 @@ import { UsersListComponent } from './components/users/users-list/users-list.com
 import { LoginComponent } from './components/users/login/login.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { ContactuserComponent } from './components/users/contactuser/contactuser.component';
+import { AddCityComponent } from './components/Citys/add-city/add-city.component';
+import { CityListComponent } from './components/Citys/city-list/city-list.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     GoogleSigninComponent,
     UsersListComponent,
+    CityListComponent,
     AddUserComponent,
+    AddCityComponent,
     LoginComponent,
     DeleteDialogComponent,
     ContactuserComponent,
@@ -69,6 +74,7 @@ import { ContactuserComponent } from './components/users/contactuser/contactuser
     FormsModule,
     MatCardModule,
     SocialLoginModule,
+    
   ],
   providers: [
     {

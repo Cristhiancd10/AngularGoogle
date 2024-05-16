@@ -1,5 +1,5 @@
-import { User } from 'src/app/models/user_model';
-import { UsersService } from 'src/app/services/users.service';
+import { City } from 'src/app/models/city_model';
+import { CityService } from 'src/app/services/city.service';
 
 import {
   AfterViewInit,
@@ -20,32 +20,24 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 
 @Component({
-  selector: 'app-users-list',
-  templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.css'],
+  selector: 'app-city-list',
+  templateUrl: './city-list.component.html',
+  styleUrls: ['./city-list.component.css'],
 })
-export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
+export class CityListComponent implements AfterViewInit, OnInit, OnDestroy {
   role: string = ''; // Variable que almacena el rol del usuario
 
-  @Output() heroesUpdated = new EventEmitter<User[]>();
+  @Output() heroesUpdated = new EventEmitter<City[]>();
   public idUser1: any;
-  public users!: User[];
+  public users!: City[];
   subRef$?: Subscription;
 
   displayedColumns: string[] = [
-    'idUser',
-    'id_Card',
-    'username',
-    'password',
-    'role',
-    'names',
-    'phone',
-    'email',
-    'city',
-    'registration_date',
-    'acciones',
+    'id',
+    'nombre',
+    'codigoPostal',
   ];
-  dataSource = new MatTableDataSource<User>();
+  dataSource = new MatTableDataSource<City>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
@@ -53,7 +45,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
   }
   //users: User[] = [];
   constructor(
-    private userService: UsersService,
+    private cityService:CityService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog
@@ -62,30 +54,12 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     this.role = storedRole !== null ? storedRole : '';
     if (this.role === 'Administrador') {
       this.displayedColumns = [
-        'idUser',
-        'id_Card',
-        'username',
-        'password',
-        'role',
-        'names',
-        'phone',
-        'email',
-        'city',
-        'registration_date',
-        'acciones',
+        'id',
+        'nombre',
+        'codigoPostal',
+
       ];
-    } else {
-      this.displayedColumns = [
-        'idUser',
-        'id_Card',
-        'username',
-        'role',
-        'names',
-        'phone',
-        'email',
-        'city',
-        'registration_date',
-      ];
+
     }
   }
 
@@ -97,12 +71,12 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
   httpHeaders: HttpHeaders = new HttpHeaders();
   ngOnInit(): void {
     this.getUserList();
-    this.idUser1 = this.activatedRoute.snapshot.paramMap.get('idUser');
+    this.idUser1 = this.activatedRoute.snapshot.paramMap.get('id');
     if (this.idUser1 == undefined) {
       return;
     }
     alert(this.idUser1);
-    this.userService.getUserId(this.idUser1).subscribe((data) => {});
+    this.cityService.getCityId(this.idUser1).subscribe((data) => {});
   }
 
   delete(id: number) {
@@ -110,7 +84,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.userService.delete(id).subscribe(() => {
+        this.cityService.delete(id).subscribe(() => {
           console.log('deleted');
           this.getUserList();
         });
@@ -120,9 +94,9 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     });
   }
   getUserList() {
-    this.subRef$ = this.userService.GetAllUser().subscribe({
-      next: (user) => {
-        this.dataSource.data = user;
+    this.subRef$ = this.cityService.GetAllCity().subscribe({
+      next: (city) => {
+        this.dataSource.data = city;
         console.log('Co ' + this.dataSource.data);
       },
       error: (response) => {
@@ -136,8 +110,5 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  logout() {
-    this.userService.logout();
-    this.router.navigate(['']);
-  }
+
 }
