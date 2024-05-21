@@ -49,7 +49,7 @@ export class UsersService {
 
   // //Post User
   insertUser(user: User): Observable<any> {
-    user.idUser = 0;
+    //user.idUser = 0;
     const httpHeaders1: HttpHeaders = this.getHeaders();
     return this.http.post(`${this.apiURL}insertUser`, user, {
       headers: httpHeaders1,
@@ -59,6 +59,7 @@ export class UsersService {
   // //Update User
   updatetUser(id: number, user: User): Observable<any> {
     const httpHeaders1: HttpHeaders = this.getHeaders();
+    console.log("user.idUser ",user.idUser);
     return this.http.put(`${this.apiURL}UpdateUser` + user.idUser, user, {
       headers: httpHeaders1,
       responseType: 'text',

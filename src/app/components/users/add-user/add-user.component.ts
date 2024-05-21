@@ -26,6 +26,8 @@ export class AddUserComponent implements OnInit {
   ignoreExistPendingChanges: boolean = false;
   ciC: string = '';
   CityGuardar:City = new City();
+  CityGuardarU:City = new City();
+  UserEdit!:User ;
 
    newuser: User = {
     idUser: 0,
@@ -52,7 +54,7 @@ export class AddUserComponent implements OnInit {
     private userService: UsersService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+
   ) {}
 
   existenCambiosPendientes(): boolean {
@@ -96,17 +98,48 @@ export class AddUserComponent implements OnInit {
     this.editMode = true;
     this.userService.getUserId(this.idUser).subscribe((data) => {
       console.log(data);
-      this.newuser = data;
+      this.ciC=data.city.nombre;
+      console.log(" this.newuser.idUser ",data.idUser," ciudad ", this.ciC);
+
+      this.cityService.getCityNombre(this.ciC).subscribe((data:City) => {
+        this.CityGuardarU=data;
+        this.newuser.city=this.CityGuardarU;
+        console.log("Ciudad Ac ", this.newuser.city," ciudad ciC ",this.ciC, " nombre ", this.newuser.city.nombre);
+      });
+
+      this.newuser.idUser=data.idUser;
+      this.myForm.patchValue({
+        id_Card: data.id_Card,
+        username: data.username,
+        password:data.password,
+      role:data.role,
+      names: data.names,
+      phone: data.phone,
+      email: data.email,
+      city: data.city.nombre,
+      registration_date: data.registration_date,
+      });
+
     });
 
   }
 
   addUser() {
 
+
     this.ignoreExistPendingChanges = true;
+
     if (this.editMode) {
+      this.newuser.id_Card = this.myForm.value.id_Card;
+      this.newuser.username = this.myForm.value.username;
+      this.newuser.password = this.myForm.value.password;
+      this.newuser.role = this.myForm.value.role;
+      this.newuser.names = this.myForm.value.names;
+      this.newuser.phone = this.myForm.value.phone;
+      this.newuser.email = this.myForm.value.email;
+
+    console.log("Ciudad Ac1 ",  this.newuser.city);
       var updateuser = {
-        city:  this.newuser.city,
         idUser: this.newuser.idUser,
         id_Card: this.newuser.id_Card,
         username: this.newuser.username,
@@ -115,6 +148,7 @@ export class AddUserComponent implements OnInit {
         names: this.newuser.names,
         phone: this.newuser.phone,
         email: this.newuser.email,
+        city:  this.newuser.city,
         registration_date: this.newuser.registration_date,
       };
 
@@ -128,15 +162,6 @@ export class AddUserComponent implements OnInit {
         },
       });
     } else {
-
-      console.log("city Compara ",this.newuser.city);
-    this.ciC=this.newuser.city.toString();
-    console.log("city C ",this.ciC);
-    var ci=this.cityService.getCityNombre(this.ciC).subscribe((data:City) => {
-      this.CityGuardar=data;
-      this.newuser.city=this.CityGuardar;
-    });
-
       this.newuser.id_Card = this.myForm.value.id_Card;
       this.newuser.username = this.myForm.value.username;
       this.newuser.password = this.myForm.value.password;
@@ -158,3 +183,4 @@ export class AddUserComponent implements OnInit {
     }
   }
 }
+
