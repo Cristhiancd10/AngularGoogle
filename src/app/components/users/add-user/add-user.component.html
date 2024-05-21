@@ -52,21 +52,7 @@
             </mat-form-field>
           </div>
           <div class="col form-group">
-            <!-- <mat-form-field>
-              <mat-label class="custom-mat-label">City: &nbsp;&nbsp;</mat-label>
-              <mat-select formControlName="city" class="form-control" id="city" name="city" [(ngModel)]="newuser.city">
-                <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</mat-option>
-              </mat-select>
-            </mat-form-field> -->
-            <!-- <mat-form-field>
-              <mat-label>Select an option</mat-label>
-              <mat-select formControlName="city" class="form-control" id="city" name="city" [(ngModel)]="newuser.city">
-                <mat-option>None</mat-option>
-                <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</mat-option>
-              </mat-select>
-            </mat-form-field> -->
-
-                 <div class="form-group">
+                  <div class="form-group">
                   <label for="suscripcion">Escoja la ciudad de residencia</label>
                   <div class="custom-select">
                     <select formControlName="city"  id="city" name="city" [(ngModel)]="newuser.city!.nombre">
