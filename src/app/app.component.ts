@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UsersService } from './services/users.service';
 import { User } from './models/user_model';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +31,7 @@ decodedToken: any; // Declara una variable para almacenar los datos decodificado
         this.authService.isUserSubject.subscribe({
           next:(userData)=>{
             this.userData=userData;
-            this.decodedToken = jwt_decode(this.userData);
+            this.decodedToken = jwtDecode(this.userData);
             this.tokenDataArray = Object.entries(this.decodedToken).map(
               ([key, value]) => value
             );
@@ -51,5 +51,7 @@ ngOnDestroy(): void {
 }
 
 }
+
+
 
 

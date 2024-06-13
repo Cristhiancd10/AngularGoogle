@@ -3,13 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "social_sso": {
+    "frontedAppAngular": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -17,20 +13,20 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/social_sso",
+            "outputPath": "dist/fronted-app-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
               "src/styles.scss"
+
             ],
             "scripts": []
           },
@@ -39,12 +35,12 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                   "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
+                  "maximumWarning": "4kb",
                   "maximumError": "4kb"
                 }
               ],
@@ -56,7 +52,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -65,19 +67,20 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "social_sso:build:production"
+              "browserTarget": "frontedAppAngular:build:production",
+              "proxyConfig":"proxy.conf.json"
             },
             "development": {
-              "browserTarget": "social_sso:build:development"
+              "browserTarget": "frontedAppAngular:build:development",
+              "proxyConfig":"proxy.conf.json"
             }
           },
-
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "social_sso:build"
+            "browserTarget": "frontedAppAngular:build"
           }
         },
         "test": {
@@ -88,13 +91,13 @@
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css",
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"
             ],
             "scripts": []
           }

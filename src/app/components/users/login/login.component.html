@@ -12,19 +12,19 @@
 
       <div class='input-fields'>
         <form [formGroup]="formLogin" (ngSubmit)="Login()">
-        <input matInput placeholder="username" type="text" formControlName="username"
+        <input matInput placeholder="username" type="text" formControlName="usernameL"
                   [errorStateMatcher]="matcher" class='input-line full-width'>
-                <mat-error class="mat-error" *ngIf="hasError('username', 'required')">Enter the user</mat-error>
+                <mat-error class="mat-error" *ngIf="hasError('usernameL', 'required')">Enter the user</mat-error>
 
                 <br />
                 <br />
-                <input matInput placeholder="Contraseña" type="password" formControlName="password"  class='input-line full-width'>
-                <mat-error class="mat-error" *ngIf="hasError('password', 'required')">Enter
+                <input matInput placeholder="Contraseña" type="password" formControlName="passwordL"  class='input-line full-width'>
+                <mat-error class="mat-error" *ngIf="hasError('passwordL', 'required')">Enter
                   password</mat-error>
                   <br />
                   <br />
 
-                  <div class="button" [ngClass]="{'disabled': !formLogin.get('username')!.value || !formLogin.get('password')!.value}">
+                  <div class="button" [ngClass]="{'disabled': !formLogin.get('usernameL')!.value || !formLogin.get('passwordL')!.value}">
                     <button mat-raised-button (click)="Login()" [disabled]="!formLogin.valid" color="primary" type="submit">
                       log in</button>
                   </div>
