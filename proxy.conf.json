@@ -1,7 +1,7 @@
 {
   "/api/*":{
-    "target":"http://localhost:5128",
-    "secure":false,
+    "target":"https://apiappnet.somee.com",
+    "secure":true,
     "logLevel":"debug",
     "changeOrigin":true
   }

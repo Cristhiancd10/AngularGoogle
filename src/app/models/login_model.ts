@@ -1,13 +1,13 @@
 export interface Login {
-  username: string;
-  password: string;
+  usernameL: string;
+  passwordL: string;
 
 }
 
 export interface Google {
-  username: string;
+  usernameL: string;
 }
 
 export interface Facebook {
-  username: string;
+  usernameL: string;
 }
