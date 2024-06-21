@@ -7,22 +7,23 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="List">USER</a>
+          <a class="nav-link active" aria-current="page" routerLink="List" *ngIf="role ==='Administrador' && userLoginOn ">USER</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="addUser" *ngIf="role ==='Administrador' && userLoginOn ">ADD USER</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="addCity" *ngIf="role ==='Administrador' ">ADD CITY</a>
+          <a class="nav-link active" aria-current="page" routerLink="addCity" *ngIf="role ==='Administrador' && userLoginOn" >ADD CITY</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="ListC" *ngIf="role ==='Administrador' ">LIST CITY</a>
+          <a class="nav-link active" aria-current="page" routerLink="ListC" *ngIf="role ==='Administrador' && userLoginOn">LIST CITY</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="">LOGIN</a>
+          <a class="nav-link active" aria-current="page" routerLink="" *ngIf="!userLoginOn" >LOGIN</a>
+          <a class="nav-link active" aria-current="page" routerLink="" *ngIf="userLoginOn">LOGOUT</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="Contact">CONTACT</a>
+          <a class="nav-link active" aria-current="page" routerLink="Contact" *ngIf="role ==='Administrador' && userLoginOn ">CONTACT</a>
         </li>
       </ul>
     </div>

@@ -1,86 +1,81 @@
 <div class="container my-5">
   <h1 class="h1">{{editMode ? 'Edit' : 'Add'}} User</h1>
   <form [formGroup]="myForm" novalidate class="custom-form">
-    <br />
-    <div class="row">
+<div class="row">
       <div class="col">
-        <mat-form-field>
-          <mat-label>Id_Card: &nbsp;&nbsp;</mat-label>
+        <br />
+        <mat-form-field appearance="outline" floatLabel="always" class="custom-form-field">
+          <mat-label>Id_Card:</mat-label>
           <input matInput type="text" formControlName="id_Card" class="form-control" id="id_Card" name="id_Card">
         </mat-form-field>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <mat-form-field>
-          <mat-label>Username: &nbsp;&nbsp;</mat-label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <mat-form-field appearance="outline" floatLabel="always" class="custom-form-field">
+          <mat-label>Username:</mat-label>
           <input matInput type="text" formControlName="username" class="form-control" id="username" name="username">
         </mat-form-field>
-        <br />
-        <br />
         <div class="row">
           <div class="col">
-            <mat-form-field>
-              <mat-label>Password: &nbsp;&nbsp;</mat-label>
-              <input matInput type="text" formControlName="password" class="form-control" id="password" name="password">
+            <mat-form-field appearance="outline" floatLabel="always" class="custom-form-field">
+              <mat-label>Password:</mat-label>
+              <input matInput type="password" formControlName="password" class="form-control" id="password" name="password" [(ngModel)]="newuser.password">
             </mat-form-field>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <mat-form-field>
-              <mat-label>Role: &nbsp;&nbsp;</mat-label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-form-field appearance="outline" floatLabel="always" class="custom-form-field">
+              <mat-label>Role:</mat-label>
               <input matInput type="text" formControlName="role" class="form-control" id="role" name="role">
             </mat-form-field>
           </div>
         </div>
-        <br />
         <div class="row">
           <div class="col">
-            <mat-form-field>
-              <mat-label>Names: &nbsp;&nbsp;</mat-label>
+            <mat-form-field appearance="outline" floatLabel="always" class="custom-form-field">
+              <mat-label>Names:</mat-label>
               <input matInput type="text" formControlName="names" class="form-control" id="names" name="names">
               <mat-error *ngIf="myForm.get('names')!.hasError('required')">The names is required</mat-error>
             </mat-form-field>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <mat-form-field>
-              <mat-label>Phone: &nbsp;&nbsp;</mat-label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-form-field appearance="outline" floatLabel="always" class="custom-form-field">
+              <mat-label>Phone:</mat-label>
               <input matInput type="text" formControlName="phone" class="form-control" id="phone" name="phone">
             </mat-form-field>
           </div>
         </div>
-        <br />
         <div class="row">
           <div class="col">
-            <mat-form-field>
-              <mat-label>Email: &nbsp;&nbsp;</mat-label>
+            <mat-form-field appearance="outline" floatLabel="always" class="custom-form-field">
+              <mat-label>Email:</mat-label>
               <input matInput type="text" formControlName="email" class="form-control" id="email" name="email">
             </mat-form-field>
-          </div>
-          <div class="col form-group">
-                  <div class="form-group">
-                  <label for="suscripcion">Escoja la ciudad de residencia</label>
-                  <div class="custom-select">
-                    <select formControlName="city"  id="city" name="city" [(ngModel)]="newuser.city!.nombre">
-                      <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
-                    </select>
-                  </div>
-                </div>
-
-
-
-          </div>
-        </div>
-        <br />
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-form-field appearance="outline" floatLabel="always" class="custom-form-field">
               <mat-label>Registration Date</mat-label>
-              <input matInput type="text" formControlName="registration_date" class="form-control" id="registration_date"
-                name="registration_date" [(ngModel)]="newuser.registration_date">
+              <input matInput type="text" formControlName="registration_date" class="form-control" id="registration_date" name="registration_date" [(ngModel)]="newuser.registration_date">
             </mat-form-field>
           </div>
+
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="col form-group">
+              <label style="display: flex; justify-content: center;" for="suscripcion">Escoja la ciudad de residencia</label>
+              <div class="custom-select" style="display: flex; justify-content: center;">
+                <select formControlName="city" id="city" name="city" [(ngModel)]="newuser.city!.nombre">
+                  <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
+                </select>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: center;">
+              <button   mat-raised-button color="primary" (click)="addCity()">Add City</button>
+            </div>
+            </div>
         </div>
         <br />
-        <button mat-raised-button color="primary" (click)="addUser()" [disabled]="!myForm.valid">Save</button>
-        <button mat-raised-button color="warn" routerLink="/List">Back</button>
+        <div style="display: flex; justify-content: center;">
+          <button mat-raised-button color="primary" (click)="addUser()" [disabled]="!myForm.valid">Save</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button mat-raised-button color="warn" routerLink="/List">Back</button>
+        </div>
       </div>
     </div>
   </form>
-
-
 </div>

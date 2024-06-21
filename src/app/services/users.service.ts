@@ -28,7 +28,6 @@ export class UsersService {
   constructor(private http: HttpClient) {
     const storedRole = localStorage.getItem('role');
         this.role = storedRole !== null ? storedRole : '';
-        console.log('role Local S',  this.role);
   }
 
   //Get User
@@ -49,8 +48,7 @@ export class UsersService {
 
   // //Post User
   insertUser(user: User): Observable<any> {
-    //user.idUser = 0;
-    const httpHeaders1: HttpHeaders = this.getHeaders();
+   const httpHeaders1: HttpHeaders = this.getHeaders();
     return this.http.post(`${this.apiURL}insertUser`, user, {
       headers: httpHeaders1,
     });
@@ -139,9 +137,12 @@ export class UsersService {
 
   logout(): void {
     // Limpiar el localStorage u otros pasos de limpieza necesarios
-    this.isAdminSubject.next(false); // Establece el usuario como no administrador
+    this.isAdminSubject.next(false);
     localStorage.removeItem('token');
-   }
+    localStorage.removeItem('role');
+    localStorage.removeItem('user');
+    localStorage.removeItem('authToken');
+  }
 
   get userLoginOn(): Observable<boolean>{
     return this.isAdminSubject.asObservable();

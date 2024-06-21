@@ -19,7 +19,6 @@ export class AddUserComponent implements OnInit {
 //agregue esto
   subRef$?: Subscription;
   dataSource = new MatTableDataSource<City>();
-
   myForm!: FormGroup;
   public idUser!: any;
   editMode: boolean = false;
@@ -27,7 +26,7 @@ export class AddUserComponent implements OnInit {
   ciC: string = '';
   CityGuardar:City = new City();
   CityGuardarU:City = new City();
-  UserEdit!:User ;
+  //UserEdit!:User ;
 
    newuser: User = {
     idUser: 0,
@@ -65,6 +64,17 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.myForm = new FormGroup({
+      id_Card: new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      role: new FormControl('', Validators.required),
+      names: new FormControl('', Validators.required),
+      phone: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
+      registration_date: new FormControl('', Validators.required),
+    });
      ///agregue esto
      this.cityService.GetAllCity().subscribe({
       next: (city) => {
@@ -78,24 +88,16 @@ export class AddUserComponent implements OnInit {
 
     ///////
     this.newuser.registration_date = this.formattedDate;
-    this.myForm = new FormGroup({
-      id_Card: new FormControl('', Validators.required),
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      role: new FormControl('', Validators.required),
-      names: new FormControl('', Validators.required),
-      phone: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
-      registration_date: new FormControl('', Validators.required),
-    });
+
 
     this.idUser = this.activatedRoute.snapshot.paramMap.get('idUser');
 
     if (this.idUser == undefined) {
+
       return;
     }
     this.editMode = true;
+
     this.userService.getUserId(this.idUser).subscribe((data) => {
       console.log(data);
       this.ciC=data.city.nombre;
@@ -107,26 +109,27 @@ export class AddUserComponent implements OnInit {
         console.log("Ciudad Ac ", this.newuser.city," ciudad ciC ",this.ciC, " nombre ", this.newuser.city.nombre);
       });
 
-      this.newuser.idUser=data.idUser;
-      this.myForm.patchValue({
-        id_Card: data.id_Card,
-        username: data.username,
-        password:data.password,
-      role:data.role,
-      names: data.names,
-      phone: data.phone,
-      email: data.email,
-      city: data.city.nombre,
-      registration_date: data.registration_date,
-      });
+      if (this.editMode) {
+        this.newuser.idUser=data.idUser;
+        this.myForm.patchValue({
+          id_Card: data.id_Card,
+          username: data.username,
+          password:data.password,
+          role:data.role,
+          names: data.names,
+          phone: data.phone,
+          email: data.email,
+          city: data.city.nombre,
+          registration_date: data.registration_date,
+        });
+      }
+
 
     });
 
   }
 
   addUser() {
-
-
     this.ignoreExistPendingChanges = true;
 
     if (this.editMode) {
@@ -181,6 +184,10 @@ export class AddUserComponent implements OnInit {
         },
       });
     }
+  }
+
+  addCity(){
+    this.router.navigate(['addCity']);
   }
 }
 

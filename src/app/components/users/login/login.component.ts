@@ -2,7 +2,7 @@ import {
   Component,
   Injectable,
   OnDestroy,
- } from '@angular/core';
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Facebook, Google, Login } from 'src/app/models/login_model';
@@ -13,9 +13,10 @@ import { ErrorStateMatcher1 } from 'src/app/error-state-matcher1';
 import {
   FacebookLoginProvider,
   SocialAuthService,
- } from '@abacritt/angularx-social-login';
+} from '@abacritt/angularx-social-login';
 
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
+
 
 @Component({
   selector: 'app-login',
@@ -58,16 +59,16 @@ export class LoginComponent implements OnDestroy {
     this.getScreenSize();
 
     this.formLogin = formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      usernameL: ['', Validators.required],
+      passwordL: ['', Validators.required],
     });
   }
 
 
   Login() {
     const userLogin: Login = {
-      username: this.formLogin.value.username,
-      password: this.formLogin.value.password,
+      usernameL: this.formLogin.value.usernameL,
+      passwordL: this.formLogin.value.passwordL,
     };
 
     this.subRef$ = this.dataService.login<Response>(userLogin).subscribe({
@@ -75,7 +76,7 @@ export class LoginComponent implements OnDestroy {
         const token = res.body!.response;
         console.log('token', res.body?.response);
         localStorage.setItem('token', token);
-        this.decodedToken = jwt_decode(token);
+        this.decodedToken = jwtDecode(token);
         this.tokenDataArray = Object.entries(this.decodedToken).map(
           ([key, value]) => value
         );
@@ -97,35 +98,26 @@ export class LoginComponent implements OnDestroy {
     return control?.hasError(validacion);
   }
 
-  ngOnDestroy() {
-    console.log('this.subRef$ ' + this.subRef$);
-    if (this.subRef$) {
-      this.subRef$.unsubscribe();
-    } else {
-      this.authSubscription.unsubscribe();
-    }
-  }
-
   loginGoogle() {
     this.subRef$ = this.authService.authState.subscribe({
       next: (user) => {
         if (user) {
           const Google: Google = {
-            username: user.idToken,
+            usernameL: user.idToken,
           };
           const names=user.name;
-          const foto= user.photoUrl;
+         // const foto= user.photoUrl;
           console.log("user"+user.name);
           // Obtener nombre de usuario y token de ID
           this.name = user.name;
-          this.dataService.googleLogin(Google.username).subscribe((res) => {
+          this.dataService.googleLogin(Google.usernameL).subscribe((res) => {
             console.log('Se inició sesión correctamente con Google.');
             console.log(
-              'restoken ' + res.token + ' googleee ' + Google.username
+              'restoken ' + res.token + ' googleee ' + Google.usernameL
             );
             if (res.token) {
               localStorage.setItem('token', res.token);
-              this.decodedToken = jwt_decode(res.token);
+              this.decodedToken = jwtDecode(res.token);
               this.tokenDataArray = Object.entries(this.decodedToken).map(
                 ([key, value]) => value
               );
@@ -133,7 +125,7 @@ export class LoginComponent implements OnDestroy {
               const user = this.tokenDataArray[0];
               const role = this.tokenDataArray[1];
               localStorage.setItem('names', names);
-              localStorage.setItem('foto', foto);
+             // localStorage.setItem('foto', foto);
               localStorage.setItem('role', role);
               localStorage.setItem('user', user);
               console.log(this.tokenDataArray, ' role ', role);
@@ -164,17 +156,17 @@ export class LoginComponent implements OnDestroy {
 
         if (response) {
           const Facebook: Facebook = {
-            username: response.authToken,
+            usernameL: response.authToken,
           };
           const names=response.name;
           const foto= response.photoUrl;
           this.name = response.name;
           console.log(' facebook10 ' + response.name);
-          this.dataService.facebookLogin(Facebook.username).subscribe((res) => {
+          this.dataService.facebookLogin(Facebook.usernameL).subscribe((res) => {
             if (res) {
               console.log('Se inició sesión correctamente con facebook.');
               localStorage.setItem('token', res.token);
-              this.decodedToken = jwt_decode(res.token);
+              this.decodedToken = jwtDecode(res.token);
               this.tokenDataArray = Object.entries(this.decodedToken).map(
                 ([key, value]) => value
               );
@@ -194,6 +186,14 @@ export class LoginComponent implements OnDestroy {
 
       }
     );
+  }
+  ngOnDestroy() {
+    console.log('this.subRef$ ' + this.subRef$);
+    if (this.subRef$) {
+      this.subRef$.unsubscribe();
+    } else {
+      this.authSubscription.unsubscribe();
+    }
   }
 
   // Method to log out.

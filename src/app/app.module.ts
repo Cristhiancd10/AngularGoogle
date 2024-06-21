@@ -74,7 +74,7 @@ import { CityListComponent } from './components/Citys/city-list/city-list.compon
     FormsModule,
     MatCardModule,
     SocialLoginModule,
-    
+
   ],
   providers: [
     {
