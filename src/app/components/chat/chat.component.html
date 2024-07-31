@@ -1,0 +1,29 @@
+<div class="message-container">
+  <div class="input-group">
+    <label class="input-label">
+      Sender:
+      <input class="input-field" [(ngModel)]="sender" placeholder="Enter sender" id="sender">
+    </label>
+    <label class="input-label">
+      Receiver:
+      <input class="input-field" [(ngModel)]="receiver" placeholder="Enter receiver">
+    </label>
+    <button class="load-button" (click)="loadMessages()">Load Messages</button>
+  </div>
+
+  <div *ngIf="messages.length > 0" class="messages-list">
+    <div *ngFor="let message of messages" class="message-item">
+      <strong>{{message.senderUsername}}:</strong> {{message.content}}
+      <em class="timestamp">{{message.timestamp | date:'short'}}</em>
+    </div>
+  </div>
+
+  <div *ngIf="messages.length === 0" class="no-messages">
+    No messages found.
+  </div>
+
+  <div class="send-message-container">
+    <input class="message-input" [(ngModel)]="newMessage" placeholder="Type your message">
+    <button class="send-button" (click)="sendMessage()">Send</button>
+  </div>
+</div>
