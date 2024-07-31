@@ -18,6 +18,8 @@ export class UsersService {
   private apiURL: string = this.enviroment + '/api/User/';
   private apiURL1: string = this.enviroment + '/api/Auth/';
 
+  private loggedIn = false;
+
 //agregue esto
   role: string = ''; // Variable que almacena el rol del usuario
   isAdminSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -90,6 +92,7 @@ export class UsersService {
           console.log("si ffuvfd ",body);
           this.isUserSubject.next(body);
           this.isAdminSubject.next(true);
+          this.loggedIn = true;
         }
       ),
     );
@@ -105,6 +108,7 @@ export class UsersService {
           console.log("tokenG ",token.token);
           this.isUserSubject.next(token.token);
           this.isAdminSubject.next(true);
+          this.loggedIn = true;
         }
       ),
     );
@@ -120,6 +124,7 @@ export class UsersService {
           console.log("userdataF ",userData.token);
           this.isUserSubject.next(userData.token);
           this.isAdminSubject.next(true);
+          this.loggedIn = true;
         }
       ),
     );
@@ -142,9 +147,14 @@ export class UsersService {
     localStorage.removeItem('role');
     localStorage.removeItem('user');
     localStorage.removeItem('authToken');
+    this.loggedIn = false;
   }
 
   get userLoginOn(): Observable<boolean>{
     return this.isAdminSubject.asObservable();
+  }
+
+  isLoggedIn(): boolean {
+    return this.loggedIn;
   }
 }

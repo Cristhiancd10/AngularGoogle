@@ -6,6 +6,7 @@ import { LoginComponent } from './components/users/login/login.component';
 import { ContactuserComponent } from './components/users/contactuser/contactuser.component';
 import { CityListComponent } from './components/Citys/city-list/city-list.component';
 import { AddCityComponent } from './components/Citys/add-city/add-city.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path:'addCity',
     component: AddCityComponent
+  },
+  {
+    path:'chat',
+    component: ChatComponent
   },
   {
     path:'',

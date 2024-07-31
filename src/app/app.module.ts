@@ -37,6 +37,7 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
 import { ContactuserComponent } from './components/users/contactuser/contactuser.component';
 import { AddCityComponent } from './components/Citys/add-city/add-city.component';
 import { CityListComponent } from './components/Citys/city-list/city-list.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { CityListComponent } from './components/Citys/city-list/city-list.compon
     LoginComponent,
     DeleteDialogComponent,
     ContactuserComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

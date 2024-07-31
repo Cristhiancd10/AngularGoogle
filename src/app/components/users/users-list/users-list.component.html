@@ -1,4 +1,4 @@
-<div class="user-list-container">
+<div *ngIf="userService.isLoggedIn()" class="user-list-container">
   <h1>User List</h1>
   <mat-form-field>
     <mat-label>Filter</mat-label>
@@ -83,3 +83,4 @@
     </mat-paginator>
   </div>
 </div>
+

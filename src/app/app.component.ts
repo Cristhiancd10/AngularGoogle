@@ -52,11 +52,11 @@ ngOnDestroy(): void {
   this.authService.isAdminSubject.unsubscribe();
 }
 
-logout() {
-  this.authServiceS.signOut();
+logout1() {
+  //this.authServiceS.signOut();
   this.router.navigate(['']);
-    // this.user = null;
   this.userLoginOn = false; // Actualizas el estado a no logueado
+  console.log("logOnFals ",this.userLoginOn );
 }
 
 }

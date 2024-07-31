@@ -82,7 +82,9 @@ export class AddCityComponent implements OnInit {
       this.cityService.insertCity(this.newuser).subscribe({
         next: (city) => {
           console.log(city);
-          this.router.navigate(['ListC']);
+          console.log("user ",localStorage.getItem('role'));
+          this.router.navigate(['addUser']);
+
         },
         error: (response) => {
           console.log(response);

@@ -53,7 +53,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
   }
   //users: User[] = [];
   constructor(
-    private userService: UsersService,
+    public userService: UsersService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog
@@ -96,6 +96,9 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
 
   httpHeaders: HttpHeaders = new HttpHeaders();
   ngOnInit(): void {
+    if (!this.userService.isLoggedIn()) {
+      this.router.navigate(['']);
+    }
     this.getUserList();
     this.idUser1 = this.activatedRoute.snapshot.paramMap.get('idUser');
     if (this.idUser1 == undefined) {
@@ -123,7 +126,6 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     this.subRef$ = this.userService.GetAllUser().subscribe({
       next: (user) => {
         this.dataSource.data = user;
-        console.log('Co ' + this.dataSource.data);
       },
       error: (response) => {
         console.log(response);
@@ -136,8 +138,8 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  logout() {
-    this.userService.logout();
-    this.router.navigate(['']);
-  }
+  // logout() {
+  //   this.userService.logout();
+  //   this.router.navigate(['']);
+  // }
 }

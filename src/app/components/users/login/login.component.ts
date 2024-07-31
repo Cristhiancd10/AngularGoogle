@@ -47,7 +47,7 @@ export class LoginComponent implements OnDestroy {
   getScreenSize() {
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;
-    console.log(this.scrHeight, this.scrWidth);
+    console.log("este ",this.scrHeight, this.scrWidth);
   }
 
   constructor(
